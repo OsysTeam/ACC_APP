@@ -1,0 +1,55 @@
+.page-wrapper {
+  background-color: white;
+  padding: 2.5rem; /* مساحة داخلية أكبر لراحة العين */
+  border-radius: 16px; /* حواف دائرية أكثر نعومة واحترافية */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); /* ظل ناعم جداً لإعطاء عمق */
+}
+
+/* 2. تنسيق العناوين (Typography) */
+.page-title {
+  font-size: 28px; /* حجم أكبر للعنوان الرئيسي */
+  font-weight: 700; /* خط عريض وواضح */
+  color: #2d3748; /* لون أسود مائل للرمادي بدلاً من الأسود الصريح */
+  margin-top: 0; /* إزالة أي هوامش علوية افتراضية */
+  margin-bottom: 0.5rem; /* مسافة صغيرة بينه وبين العنوان الفرعي */
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: #718096; /* لون رمادي لجعله أقل بروزاً من العنوان الرئيسي */
+  margin-top: 0;
+  margin-bottom: 2.5rem; /* مسافة أكبر لفصل العناوين عن محتوى المهام */
+}
+
+/* 3. حاوية قائمة المهام */
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* مسافة ثابتة ومتناسقة بين كل مهمة وأخرى */
+}
+
+/* 4. تصميم كل عنصر مهمة على حدة (الأهم) */
+.task-item {
+  display: flex; /* يساعد في محاذاة أي أيقونات مستقبلية */
+  align-items: center;
+  
+  background-color: white;
+  padding: 1.25rem 1.5rem; /* مساحة داخلية متوازنة */
+  
+  border: 1px solid #e2e8f0; /* حدود رمادية فاتحة جداً */
+  border-radius: 10px; /* حواف دائرية تتناسب مع الحاوية الرئيسية */
+  
+  font-size: 16px;
+  font-weight: 500; /* خط أثقل قليلاً من العادي */
+  color: #4a5568;
+  
+  /* تأثير ناعم عند مرور الماوس */
+  transition: all 0.2s ease-in-out;
+}
+
+.task-item:hover {
+  border-color: #a0aec0; /* تغيير لون الحدود عند المرور */
+  transform: translateY(-2px); /* رفع العنصر قليلاً */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06); /* إضافة ظل خفيف */
+  cursor: pointer; /* تغيير شكل المؤشر للإشارة إلى أنه قابل للنقر */
+}

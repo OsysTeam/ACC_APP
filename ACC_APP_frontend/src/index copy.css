@@ -1,0 +1,60 @@
+/* ======================================= */
+/*      index.css (الملف الرئيسي والنهائي)     */
+/* ======================================= */
+
+/* 1. إعدادات أساسية للصفحة لضمان عدم وجود مشاكل */
+body {
+  margin: 0;
+  direction: rtl;
+  background-color: #f4f7fa; /* لون الخلفية العام */
+  font-family: 'Cairo', sans-serif;
+  overflow-x: hidden; /* يمنع أي تمرير أفقي نهائياً */
+}
+
+/* 2. تنسيق القائمة الجانبية (Sidebar) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100vh;
+  z-index: 1001; /* يجب أن يكون فوق كل شيء */
+  background: linear-gradient(to top, #5c4aae, #6a7fde);
+  color: white;
+  padding: 1.5rem;
+}
+
+/* 3. تنسيق الشريط العلوي (Navbar) */
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 260px;
+  width: calc(100% - 260px);
+  height: 70px;
+  z-index: 1000;
+  
+  /* التصميم الداخلي والخارجي */
+  background-color: white;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  color: #333; /* لون النص ليتناسب مع الخلفية البيضاء */
+}
+
+/* 4. تنسيق منطقة المحتوى القابلة للتمرير */
+.content-area {
+  /* **هذا هو الحل**: نترك هوامش بنفس أبعاد الشريطين الثابتين */
+  margin-top: 70px;
+  margin-right: 260px;
+  padding: 2rem;
+}
+
+/* 5. (اختياري) يمكنك إضافة تنسيقات للمحتوى الداخلي هنا أيضاً */
+.page-wrapper {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
