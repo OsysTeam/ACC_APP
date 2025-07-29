@@ -128,7 +128,7 @@ import { FaBell, FaBuilding } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   return (
-  <nav className="navbar">
+  <nav className="navbar sticky-top navbar-light bg-light">
   <div className="navbar-right">
     <FaBuilding size={28} />
     <div className="system-title">

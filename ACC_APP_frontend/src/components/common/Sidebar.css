@@ -1,18 +1,112 @@
+/* الأنماط الأساسية للشريط الجانبي */
 .sidebar {
+  width: 260px; /* عرض ثابت */
+  height: 100vh;
   position: fixed;
   top: 0;
   right: 0;
-  width: 260px;
-  height: 100vh;
-  background: linear-gradient(to bottom, #5f6edc, #6c41c5);
-  color: #fff;
-  padding: 2rem 1rem;
-  overflow-y: auto;
-  z-index: 999;
+  background-color: #ffffff; /* خلفية بيضاء */
+  border-left: 1px solid #e2e8f0; /* فاصل جانبي */
+  padding: 1rem;
+  font-family: 'Cairo', sans-serif; /* استخدام خط مناسب للعربية */
 }
 
-.sidebar-menu a {
-  font-weight: 600;
-  color: white;
+.sidebar h3 {
+  /* color: #4a5568; */
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* نمط عنصر القائمة الرئيسي */
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  /* color: #4a5568; */
+  color: #ffffff;
   text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.menu-item-content {
+    display: flex;
+    align-items: center;
+}
+
+.menu-item:hover {
+  background-color: #d1b8b8a9; /* لون عند المرور */
+}
+
+/* نمط الرابط النشط */
+.menu-item.active{
+   background-color: #4299e1;
+  color: white;
+}
+/* .submenu a.active {
+  background-color: #4299e1; 
+  color: white;
+} */
+
+.menu-item.active:hover {
+  background-color: #3182ce;
+  color: #4a5568;
+}
+
+
+.menu-item svg {
+  font-size: 1.25rem;
+  margin-left: 1rem; /* مسافة للأيقونة على اليسار */
+}
+
+/* أيقونة السهم للأسفل */
+.chevron-icon {
+  transition: transform 0.3s ease;
+}
+
+/* تدوير السهم عندما تكون القائمة الفرعية مفتوحة */
+.menu-item.open .chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* نمط القائمة الفرعية */
+.submenu {
+  list-style-type: none;
+  padding-right: 2rem; /* مسافة بادئة لتمييزها */
+  margin-top: 0.5rem;
+  max-height: 0; /* إخفاء القائمة افتراضيًا */
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+/* عندما يكون العنصر مفتوحًا، أظهر القائمة الفرعية */
+.menu-item.open + .submenu {
+  max-height: 500px; /* قيمة كبيرة بما يكفي لإظهار كل العناصر */
+}
+
+.submenu li a {
+  display: block;
+  padding: 0.6rem 1rem;
+  /* color: #718096; */
+
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-bottom: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.submenu li a:hover {
+  background-color: #d1b8b8a9;
+}
+.submenu a.active:hover {
+  background-color: #3182ce;
+  color: white;
 }

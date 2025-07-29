@@ -1,17 +1,12 @@
+
 .navbar {
-  position: fixed;
-  top: 0;
-  right: 260px;
-  width: calc(100% - 260px);
-  height: 70px;
-  background: linear-gradient(to left, #6f42c1, #5a62ea);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
-  z-index: 1000;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x) !important;
 }
+
 
 .navbar-right,
 .navbar-left {

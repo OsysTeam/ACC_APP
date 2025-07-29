@@ -5,6 +5,7 @@ import './index copy.css'
 import { BrowserRouter } from 'react-router-dom'
 import Router from "./app/router/router.tsx"
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
