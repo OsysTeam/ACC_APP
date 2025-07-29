@@ -30,15 +30,22 @@
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  right: 270px;
+  width: calc(100% - 270px);
+  height: 70px;
   background: linear-gradient(to left, #6f42c1, #5a62ea);
   color: white;
-  padding: 1rem 2rem;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1000;
 }
 
 .main-content {
+  margin-top: 70px;
   padding: 2rem;
   flex-grow: 1;
   overflow-y: auto;
