@@ -1,57 +1,51 @@
-/* ======================================= */
-/*      index.css (الملف الرئيسي والنهائي)     */
-/* ======================================= */
-
-/* 1. إعدادات أساسية للصفحة لضمان عدم وجود مشاكل */
+/* Base styles */
 body {
   margin: 0;
   direction: rtl;
-  background-color: #f4f7fa; /* لون الخلفية العام */
+  background-color: #f4f7fa;
   font-family: 'Cairo', sans-serif;
-  overflow-x: hidden; /* يمنع أي تمرير أفقي نهائياً */
+  overflow-x: hidden;
 }
 
-/* 2. تنسيق القائمة الجانبية (Sidebar) */
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
   right: 0;
   width: 260px;
   height: 100vh;
-  z-index: 1001; /* يجب أن يكون فوق كل شيء */
   background: linear-gradient(to top, #5c4aae, #6a7fde);
-  color: white;
+  color: #fff;
   padding: 1.5rem;
+  overflow-y: auto;
+  z-index: 1001;
 }
 
-/* 3. تنسيق الشريط العلوي (Navbar) */
+/* Navbar */
 .navbar {
   position: fixed;
   top: 0;
   right: 260px;
   width: calc(100% - 260px);
   height: 70px;
-  z-index: 1000;
-  
-  /* التصميم الداخلي والخارجي */
   background-color: white;
   border-bottom: 1px solid #e9ecef;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  color: #333; /* لون النص ليتناسب مع الخلفية البيضاء */
+  color: #333;
+  z-index: 1000;
 }
 
-/* 4. تنسيق منطقة المحتوى القابلة للتمرير */
+/* Content */
 .content-area {
-  /* **هذا هو الحل**: نترك هوامش بنفس أبعاد الشريطين الثابتين */
   margin-top: 70px;
   margin-right: 260px;
   padding: 2rem;
+  min-height: calc(100vh - 70px);
 }
 
-/* 5. (اختياري) يمكنك إضافة تنسيقات للمحتوى الداخلي هنا أيضاً */
 .page-wrapper {
   background-color: white;
   padding: 2rem;
