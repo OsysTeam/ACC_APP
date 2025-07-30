@@ -5,5 +5,9 @@ export const allRoutes={
     login:'/login',
     tasks:'/tasks',
     homeDashboard:'/homeDashboard',
-    officeDefinition:'/officeDefinition'
+    officeDefinition:'/officeDefinition',
+    addbranchoff:'/addbranchoff',
+    userpermission:'/userpermission',
+    employeedata:'/employeedata',
+
 };

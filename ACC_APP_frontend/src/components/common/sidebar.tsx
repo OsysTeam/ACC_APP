@@ -37,8 +37,8 @@ const menuItems: MenuItem[] = [
   icon: <FaCog />,
   subItems: [
     { path: "/officeDefinition", name: "تعريف المكتب", icon: <FaBuilding /> },
-    { path: "/addbranch", name: "اضافة فرع للمكتب", icon: <FaPlusCircle /> },
-    { path: "/userPermissions", name: "صلاحيات المستخدم", icon: <FaUserShield /> },
+    { path: "/addbranchoff", name: "اضافة فرع للمكتب", icon: <FaPlusCircle /> },
+    { path: "/userpermission", name: "صلاحيات المستخدم", icon: <FaUserShield /> },
   ]
 },
 {

@@ -4,6 +4,9 @@ import Login from "../../features/auth/pages/Login";
 import HomeDashboard from "../../features/Home/HomeDashboard";
 import Tasks from "../../features/tasks/components/Tasks";
 import OfficeDefinition from "../../features/setting_permission/office/OfficeDefinition";
+import AddBranchOff from "../../features/setting_permission/office/AddBranchOff";
+import UserPermission from "../../features/setting_permission/userPermission/UserPermission";
+import EmployeeData from "../../features/HR/EmployeeData";
 
 
 
@@ -23,10 +26,20 @@ element:<HomeDashboard/>
 {
     path:allRoutes.officeDefinition,
     element:<OfficeDefinition/>
+},
+{
+path:allRoutes.addbranchoff,
+element:<AddBranchOff/>
+},
+{
+    path:allRoutes.userpermission,
+    element:<UserPermission/>
 }
-
+,{
+    path:allRoutes.employeedata,
+    element:<EmployeeData/>
+}
 ];
-
 export const authRoutes:RouteObject[]=[
     {
         path:allRoutes.login,

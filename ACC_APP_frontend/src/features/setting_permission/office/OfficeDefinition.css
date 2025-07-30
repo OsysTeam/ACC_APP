@@ -9,7 +9,7 @@ body {
   background-color: #f0f2f5;
   padding: 1rem;
   /* لوضع البطاقة في منتصف الصفحة عمودياً وأفقياً */
- padding-right:auto;
+ padding-right:10rem;
  margin-top: 5rem;
   display: flex;
   align-items: center;
