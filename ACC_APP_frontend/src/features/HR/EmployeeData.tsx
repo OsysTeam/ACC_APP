@@ -13,12 +13,16 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
 import Divider from '@mui/material/Divider';
 
 // --- التغيير هنا: استيراد الأيقونات من react-icons/fa ---
-import { FaPlus, FaEdit, FaTrash, FaSearch, FaSave } from 'react-icons/fa';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SearchIcon from '@mui/icons-material/Search';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 const EmployeeData: React.FC = () => {
@@ -34,10 +38,10 @@ const EmployeeData: React.FC = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             إدارة الموظفين
           </Typography>
-          <Button color="inherit" startIcon={<FaPlus />}>جديد</Button>
-          <Button color="inherit" startIcon={<FaEdit />}>تعديل</Button>
-          <Button color="inherit" startIcon={<FaTrash />}>حذف</Button>
-          <Button color="inherit" startIcon={<FaSearch />}>بحث</Button>
+          <Button color="inherit" startIcon={<AddIcon />}>جديد</Button>
+          <Button color="inherit" startIcon={<EditIcon />}>تعديل</Button>
+          <Button color="inherit" startIcon={<DeleteIcon />}>حذف</Button>
+          <Button color="inherit" startIcon={<SearchIcon />}>بحث</Button>
         </Toolbar>
       </AppBar>
 
@@ -144,7 +148,7 @@ const EmployeeData: React.FC = () => {
 
                 {/* زر الحفظ */}
                 <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button variant="contained" color="primary" size="large" startIcon={<FaSave />}>
+                  <Button variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
                     حفظ البيانات
                   </Button>
                 </Box>
