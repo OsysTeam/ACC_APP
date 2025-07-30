@@ -1,0 +1,67 @@
+/* -- الهيكل الرئيسي للصفحة -- */
+.page-container {
+  display: flex;
+  flex-direction: row-reverse; /* لعكس الترتيب وجعل القائمة على اليمين */
+  gap: 24px;
+  padding: 24px;
+  align-items: flex-start; /* لمحاذاة العناصر من الأعلى */
+}
+
+.right-column {
+  width: 300px; /* عرض ثابت للعمود الأيمن */
+  flex-shrink: 0; /* لمنع العمود من الانكماش */
+}
+
+.left-column {
+  flex-grow: 1; /* العمود الأيسر يأخذ باقي المساحة */
+}
+
+/* -- تنسيق النموذج الداخلي -- */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* المسافة بين صفوف النموذج */
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  align-items: center; /* لمحاذاة العناصر في الصف بشكل عمودي */
+}
+
+/* لتمديد حقل الإدخال ليأخذ المساحة المتاحة */
+.form-row .grow {
+  flex-grow: 1;
+}
+.rigth-card{
+  height: 35rem;
+}
+
+body {
+  padding-right: 0 !important;
+  overflow-y: scroll !important; /* يمنع تغيير عرض الصفحة */
+}
+.MuiPopover-root, .MuiMenu-root {
+  z-index: 1300; /* يخلي القائمة فوق كل العناصر */
+}
+.save-button {
+  background-color: #1976d2; /* لون أزرق أساسي */
+  color: #fff; /* النص أبيض */
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 12px 32px; /* px = أفقي , py = رأسي */
+  border-radius: 10px; /* زوايا مستديرة */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* ظل ناعم */
+  transition: all 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #1565c0; /* لون أغمق عند المرور */
+  transform: scale(1.05); /* تكبير بسيط */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.save-button .MuiButton-startIcon{
+  margin-left:1.5rem;
+  margin-right: .5rem;
+}
