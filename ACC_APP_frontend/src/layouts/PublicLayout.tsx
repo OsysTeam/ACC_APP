@@ -1,5 +1,3 @@
-
-
 // const PublicLayout: React.FC = () => {
 //    return (
 //     <div className="app-layout">
@@ -16,7 +14,6 @@
 //     </div>
 //   );
 // };
-
 
 // const PublicLayout: React.FC = () => {
 //   return (
@@ -71,24 +68,27 @@
 //   </div>
 // </>
 
-
 //   );
 // };
 
 // export default PublicLayout;
 
 import React from "react";
-import Navbar from "../components/common/Navbar";
-import Sidebar from '../components/common/sidebar';
+// import Navbar from "../components/common/Navbar";
+// import Sidebar from "../components/common/sidebar";
 import { Outlet } from "react-router-dom";
 import "./PublicLayout.css"; // استيراد ملف التنسيق
+import SidebarMUI from "../components/common/SidebarMUI";
+import NavbarMUI from "../components/common/NavbarMUI";
 
 const PublicLayout: React.FC = () => {
   return (
     // لا نحتاج لـ app-layout أو main-wrapper بعد الآن
     <>
-      <Sidebar />
-      <Navbar />
+      <SidebarMUI />
+      {/* <Sidebar /> */}
+      <NavbarMUI />
+      {/* <Navbar /> */}
       <main className="content-area">
         <Outlet />
       </main>
@@ -97,7 +97,6 @@ const PublicLayout: React.FC = () => {
 };
 
 export default PublicLayout;
-
 
 // import React from 'react';
 // import Navbar from '../components/common/Navbar';
