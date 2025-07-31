@@ -34,11 +34,12 @@
   flex-grow: 1;
 }
 .rigth-card{
-  height: 35rem;
+  height: 34rem;
 }
 
 body {
   padding-right: 0 !important;
+  min-height: auto !important;
   overflow-y: scroll !important; /* يمنع تغيير عرض الصفحة */
 }
 .MuiPopover-root, .MuiMenu-root {

@@ -15,6 +15,7 @@ import {
   Divider,
   AppBar,
   Toolbar,
+  Grid,
   type SelectChangeEvent,
 } from "@mui/material";
 
@@ -182,7 +183,7 @@ const EmployeeData: React.FC = () => {
 
   return (
     <Box
-      sx={{ backgroundColor: "#f4f6f8", minHeight: "100vh", direction: "rtl" }}
+      sx={{ backgroundColor: "#f4f6f8", minHeight: "auto", direction: "rtl" }}
     >
       {/* الشريط العلوي */}
       <AppBar position="static" color="default" elevation={1}>
@@ -210,6 +211,7 @@ const EmployeeData: React.FC = () => {
         {/* العمود الأيمن */}
 
         {/* العمود الأيسر */}
+
         <div className="left-column">
           <Card variant="outlined">
             <CardHeader title="بيانات الموظف" />
@@ -218,30 +220,88 @@ const EmployeeData: React.FC = () => {
               <CardContent>
                 <div className="form-container">
                   <div className="form-row">
-                    <TextField
-                      variant="outlined"
-                      label="كود الموظف"
-                      required
-                      className="grow"
-                    />
-                    <TextField
-                      variant="outlined"
-                      label="اسم الموظف"
-                      required
-                      className="grow"
-                    />
-                  </div>
-                  <div className="form-row">
-                    <TextField
-                      variant="outlined"
-                      label="الرقم القومي"
-                      className="grow"
-                    />
-                    <TextField
-                      variant="outlined"
-                      label="العنوان"
-                      className="grow"
-                    />
+                    <Box
+                      sx={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 150px",
+                        gridTemplateRows: "auto auto", // صفين
+                        gap: 2,
+                        alignItems: "start",
+                        mt: 2,
+                        width: "100%",
+                      }}
+                    >
+                      {/* الحقول */}
+                      <TextField
+                        variant="outlined"
+                        label="كود الموظف"
+                        required
+                        fullWidth
+                        sx={{ gridColumn: 1 }}
+                      />
+                      <TextField
+                        variant="outlined"
+                        label="اسم الموظف"
+                        required
+                        fullWidth
+                        sx={{ gridColumn: 2 }}
+                      />
+                      <TextField
+                        variant="outlined"
+                        label="الرقم القومي"
+                        fullWidth
+                        sx={{ gridColumn: 1 }}
+                      />
+                      <TextField
+                        variant="outlined"
+                        label="العنوان"
+                        fullWidth
+                        sx={{ gridColumn: 2 }}
+                      />
+
+                      {/* الصورة */}
+                      <Box
+                        sx={{
+                          gridColumn: 3,
+                          gridRow: "1 / span 2", // تاخد صفين
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          src={profileImg || "/default-avatar.png"}
+                          alt="صورة الموظف"
+                          sx={{
+                            width: 120,
+                            height: 120,
+                            borderRadius: "8px",
+                            objectFit: "cover",
+                            border: "1px solid #ccc",
+                            backgroundColor: "#f9f9f9",
+                            mb: 1,
+                          }}
+                        />
+                        <Button
+                          sx={{ whiteSpace: "nowrap" }}
+                          variant="contained"
+                          type="button"
+                          onClick={() =>
+                            document.getElementById("profileUpload")?.click()
+                          }
+                        >
+                          إختر الصورة الشخصية
+                        </Button>
+                        <input
+                          id="profileUpload"
+                          type="file"
+                          hidden
+                          accept="image/*"
+                          onChange={handleProgImgChange}
+                        />
+                      </Box>
+                    </Box>
                   </div>
                   <div className="form-row">
                     <TextField
@@ -274,12 +334,13 @@ const EmployeeData: React.FC = () => {
                         <MenuItem value="married">متزوج</MenuItem>
                       </Select>
                     </FormControl>
-                    <FormControl className="grow">
+                    <FormControl variant="outlined" className="grow">
                       <InputLabel>النوع</InputLabel>
                       <Select
                         value={gender}
                         onChange={(e) => {
                           setGender(e.target.value);
+
                           // // بعد الاختيار روح للعنصر اللي بعده
                           // const form = document.querySelector("form") as HTMLFormElement;
                           // const elements = Array.from(form.elements) as HTMLElement[];
@@ -288,6 +349,7 @@ const EmployeeData: React.FC = () => {
                           //   elements[index + 1].focus();
                           // }
                         }}
+                        label="النوع"
                       >
                         <MenuItem value="male">ذكر</MenuItem>
                         <MenuItem value="female">أنثى</MenuItem>
@@ -329,53 +391,54 @@ const EmployeeData: React.FC = () => {
                     >
                       Add
                     </Button>
-                    <TextField
-                      variant="outlined"
-                      label="تاريخ بداية العمل"
-                      type="date"
-                      InputLabelProps={{ shrink: true }}
-                      className="grow"
-                    />
                   </div>
                   <div className="form-row">
-                    <TextField
-                      variant="outlined"
-                      label="ملاحظات"
-                      className="grow"
-                      multiline
-                      maxRows={3}
-                    />
                     <Box
-                      component="img"
-                      src={profileImg || ""}
-                      alt="صورة الموظف"
                       sx={{
-                        mt: 1,
-                        width: 120,
-                        height: 120,
-                        borderRadius: "8px",
-                        objectFit: "cover",
-                        border: "1px solid #ccc",
-                        backgroundColor: "#f9f9f9",
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                        alignItems: "center",
+                        gap: 2,
                       }}
-                    />
-                    <Button
-                      variant="contained"
-                      type="button"
-                      onClick={() =>
-                        document.getElementById("profileUpload")?.click()
-                      }
                     >
-                      إختر الصورة الشخصية
-                    </Button>
-
-                    <input
-                      id="profileUpload"
-                      type="file"
-                      hidden
-                      accept="image/*"
-                      onChange={handleProgImgChange}
-                    />
+                      <Typography
+                        sx={{
+                          whiteSpace: "nowrap",
+                        }}
+                        color="initial"
+                      >
+                        فترة العقد
+                      </Typography>
+                      <TextField
+                        sx={{
+                          width: "14rem",
+                        }}
+                        variant="outlined"
+                        label="من"
+                        type="date"
+                        InputLabelProps={{ shrink: true }}
+                        className="grow"
+                      />
+                      <TextField
+                        sx={{
+                          width: "14rem",
+                        }}
+                        variant="outlined"
+                        label="الى"
+                        type="date"
+                        InputLabelProps={{ shrink: true }}
+                        className="grow"
+                      />
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        label="ملاحظات"
+                        className="grow"
+                        multiline
+                        maxRows={3}
+                      />
+                    </Box>
                   </div>
                 </div>
               </CardContent>
@@ -394,6 +457,7 @@ const EmployeeData: React.FC = () => {
             </form>
           </Card>
         </div>
+
         <div className="right-column">
           <Card variant="outlined" className="rigth-card">
             <CardHeader title="أسماء الموظفين" />

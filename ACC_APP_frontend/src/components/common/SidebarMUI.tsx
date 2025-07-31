@@ -69,7 +69,7 @@ const menuItems: MenuItem[] = [
       {
         name: "تجديد عقود العمل",
         icon: <FaHandshake />,
-        path: "/renewContracts",
+        path: "/contractform",
       },
       {
         name: "حركة النقل بين الإدارات",
@@ -227,7 +227,10 @@ export default function SidebarMUI() {
               sx={{ color: "#fff" }}
             >
               <ListItemIcon sx={{ color: "#fff" }}>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
+              <ListItemText
+                sx={{ ml: "20px", mr: "5px" }}
+                primary={item.name}
+              />
               {item.subItems &&
                 (openItem === item.name ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButton>
@@ -256,7 +259,10 @@ export default function SidebarMUI() {
                       <ListItemIcon sx={{ color: "#fff" }}>
                         {sub.icon}
                       </ListItemIcon>
-                      <ListItemText primary={sub.name} />
+                      <ListItemText
+                        primary={sub.name}
+                        sx={{ ml: "20px", mr: "5px" }}
+                      />
                     </ListItemButton>
                   ))}
                 </List>

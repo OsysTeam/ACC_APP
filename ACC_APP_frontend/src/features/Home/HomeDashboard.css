@@ -56,7 +56,7 @@
 .dashboard-wrapper {
   padding: 2rem;
   background-color: #f7f8fa; /* هذا ما يعطي لوحة التحكم لونها الفاتح */
-  min-height: 100vh;
+  min-height: auto;
   direction: rtl;
 }
 .body{
