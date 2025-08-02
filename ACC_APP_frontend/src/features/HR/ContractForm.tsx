@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as xlsx from "xlsx";
 import { saveAs } from "file-saver";
 import {
@@ -18,6 +18,7 @@ import {
 // jQuery + DataTables + Buttons
 import $ from "jquery";
 import "datatables.net-dt";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "datatables.net-buttons/js/dataTables.buttons.min.js";
 import "datatables.net-buttons/js/buttons.html5.min.js";
 import "datatables.net-buttons/js/buttons.print.min.js";
@@ -28,6 +29,7 @@ import "datatables.net-buttons";
 // pdfmake + Arabic font
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import type { TDocumentDefinitions } from "pdfmake/interfaces";
 import amiriFont from "../../assets/fonts/Amiri-Regular.base64";
 
 pdfMake.vfs = {
@@ -44,6 +46,8 @@ pdfMake.fonts = {
     bolditalics: "Amiri-Regular.ttf",
   },
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(window as any).pdfMake = pdfMake;
 
 const employee = [
   { label: "1", value: "ahmed ali" },
@@ -65,24 +69,21 @@ const rowsData = [
 
 const ContractForm: React.FC = () => {
   const [contractStatus, setContractStatus] = useState("");
+  const tableRef = useRef<HTMLTableElement | null>(null);
 
   useEffect(() => {
-    const tableId = "#contractsTable";
-    const tableElement = document.querySelector(tableId);
-
-    if (!tableElement) {
-      console.error("Table element not found");
-      return;
-    }
+    const table = tableRef.current;
+    if (!table) return;
 
     try {
-      // لو الجدول موجود بالفعل دمره
-      if (($.fn.DataTable as any).isDataTable(tableId)) {
-        ($(tableId) as any).DataTable().clear().destroy(true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (($.fn.DataTable as any).isDataTable(table)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ($(table) as any).DataTable().clear().destroy(true);
       }
 
-      // إنشاء الجدول
-      ($(tableId) as any).DataTable({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ($(table) as any).DataTable({
         dom: "Bfrtip",
         buttons: [
           {
@@ -94,7 +95,7 @@ const ContractForm: React.FC = () => {
             extend: "pdfHtml5",
             text: "📄 تصدير إلى PDF",
             className: "btn btn-danger",
-            customize: function (doc: any) {
+            customize: function (doc: TDocumentDefinitions) {
               if (!doc.defaultStyle) doc.defaultStyle = {};
               if (!doc.styles) doc.styles = {};
 
@@ -118,6 +119,14 @@ const ContractForm: React.FC = () => {
     } catch (err) {
       console.error("Error initializing DataTable", err);
     }
+
+    return () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (($.fn.DataTable as any).isDataTable(table)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ($(table) as any).DataTable().destroy(true);
+      }
+    };
   }, []);
 
   const handleExportExcel = () => {
@@ -169,7 +178,12 @@ const ContractForm: React.FC = () => {
         تصدير إلى Excel (يدوي)
       </Button>
 
-      <table id="contractsTable" className="display" style={{ width: "100%" }}>
+      <table
+        ref={tableRef}
+        id="contractsTable"
+        className="display"
+        style={{ width: "100%" }}
+      >
         <thead>
           <tr>
             <th>ID</th>
