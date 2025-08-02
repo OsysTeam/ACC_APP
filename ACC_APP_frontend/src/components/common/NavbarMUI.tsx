@@ -6,19 +6,24 @@ import {
   Box,
   IconButton,
   Badge,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { FaBell, FaBuilding } from "react-icons/fa";
 
 const NavbarMUI: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <AppBar
       position="sticky"
       sx={{
-        width: `calc(100% - ${260}px)`,
+        width: isMobile ? "100%" : `calc(100% - ${260}px)`,
         backgroundColor: "#f8f9fa",
 
         flexDirection: "row-reverse",
-        mr: `${260}px`,
+        mr: isMobile ? 0 : `${260}px`,
         // "margin-bottom": "2em",
         boxShadow: "0px 2px 4px rgba(0,0,0,0.1)",
         background: "linear-gradient(to bottom, #6a11cb, #8359afff)", // نفس اللون

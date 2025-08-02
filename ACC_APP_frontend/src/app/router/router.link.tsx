@@ -7,7 +7,10 @@ import OfficeDefinition from "../../features/setting_permission/office/OfficeDef
 import AddBranchOff from "../../features/setting_permission/office/AddBranchOff";
 import UserPermission from "../../features/setting_permission/userPermission/UserPermission";
 import EmployeeData from "../../features/HR/EmployeeData";
-import ContractForm from "./../../features/HR/ContractForm";
+import ContractForm from "../../features/HR/ContractForm";
+import EmployeeAttachments from "../../features/HR/more/EmployeeAttachments";
+import TransferMovement from "../../features/HR/more/TransferMovement";
+import AddCompanyOrClient from "../../features/company/AddCompanyOrClient";
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -41,6 +44,18 @@ export const publicRoutes: RouteObject[] = [
   {
     path: allRoutes.contractform,
     element: <ContractForm />,
+  },
+  {
+    path: allRoutes.employeeAttachments,
+    element: <EmployeeAttachments />,
+  },
+  {
+    path: allRoutes.transferMovement,
+    element: <TransferMovement />,
+  },
+  {
+    path: allRoutes.addCompanyOrClient,
+    element: <AddCompanyOrClient />,
   },
 ];
 export const authRoutes: RouteObject[] = [

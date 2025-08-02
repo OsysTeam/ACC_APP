@@ -1,4 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  flexRender,
+} from "@tanstack/react-table";
+
+import type { ColumnDef } from "@tanstack/react-table";
+
 import * as xlsx from "xlsx";
 import { saveAs } from "file-saver";
 import {
@@ -13,41 +22,14 @@ import {
   MenuItem,
   Select,
   Button,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TableFooter,
+  TablePagination,
 } from "@mui/material";
-
-// jQuery + DataTables + Buttons
-import $ from "jquery";
-import "datatables.net-dt";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
-import "datatables.net-buttons/js/dataTables.buttons.min.js";
-import "datatables.net-buttons/js/buttons.html5.min.js";
-import "datatables.net-buttons/js/buttons.print.min.js";
-import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
-import "datatables.net";
-import "datatables.net-buttons";
-
-// pdfmake + Arabic font
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-import type { TDocumentDefinitions } from "pdfmake/interfaces";
-import amiriFont from "../../assets/fonts/Amiri-Regular.base64";
-
-pdfMake.vfs = {
-  ...pdfFonts.vfs,
-  "Amiri-Regular.ttf": amiriFont,
-};
-
-pdfMake.fonts = {
-  ...pdfMake.fonts,
-  Amiri: {
-    normal: "Amiri-Regular.ttf",
-    bold: "Amiri-Regular.ttf",
-    italics: "Amiri-Regular.ttf",
-    bolditalics: "Amiri-Regular.ttf",
-  },
-};
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(window as any).pdfMake = pdfMake;
 
 const employee = [
   { label: "1", value: "ahmed ali" },
@@ -67,67 +49,30 @@ const rowsData = [
   { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
 ];
 
+const columnsDef: ColumnDef<any>[] = [
+  { accessorKey: "id", header: "ID" },
+  { accessorKey: "firstName", header: "First Name" },
+  { accessorKey: "lastName", header: "Last Name" },
+  { accessorKey: "age", header: "Age" },
+  {
+    id: "fullName",
+    header: "Full Name",
+    cell: (info) =>
+      `${info.row.original.firstName || ""} ${
+        info.row.original.lastName || ""
+      }`,
+  },
+];
+
 const ContractForm: React.FC = () => {
   const [contractStatus, setContractStatus] = useState("");
-  const tableRef = useRef<HTMLTableElement | null>(null);
 
-  useEffect(() => {
-    const table = tableRef.current;
-    if (!table) return;
-
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (($.fn.DataTable as any).isDataTable(table)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ($(table) as any).DataTable().clear().destroy(true);
-      }
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ($(table) as any).DataTable({
-        dom: "Bfrtip",
-        buttons: [
-          {
-            extend: "excelHtml5",
-            text: "📊 تصدير إلى Excel",
-            className: "btn btn-success",
-          },
-          {
-            extend: "pdfHtml5",
-            text: "📄 تصدير إلى PDF",
-            className: "btn btn-danger",
-            customize: function (doc: TDocumentDefinitions) {
-              if (!doc.defaultStyle) doc.defaultStyle = {};
-              if (!doc.styles) doc.styles = {};
-
-              doc.defaultStyle.font = "Amiri";
-              doc.defaultStyle.alignment = "right";
-
-              doc.styles.tableHeader = doc.styles.tableHeader || {};
-              doc.styles.tableBodyOdd = doc.styles.tableBodyOdd || {};
-              doc.styles.tableBodyEven = doc.styles.tableBodyEven || {};
-
-              doc.styles.tableHeader.alignment = "right";
-              doc.styles.tableBodyOdd.alignment = "right";
-              doc.styles.tableBodyEven.alignment = "right";
-            },
-          },
-        ],
-        language: {
-          url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json",
-        },
-      });
-    } catch (err) {
-      console.error("Error initializing DataTable", err);
-    }
-
-    return () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (($.fn.DataTable as any).isDataTable(table)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ($(table) as any).DataTable().destroy(true);
-      }
-    };
-  }, []);
+  const table = useReactTable({
+    data: rowsData,
+    columns: columnsDef,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+  });
 
   const handleExportExcel = () => {
     const worksheet = xlsx.utils.json_to_sheet(rowsData);
@@ -175,36 +120,51 @@ const ContractForm: React.FC = () => {
         عرض البيانات
       </Button>
       <Button variant="contained" sx={{ mb: 2 }} onClick={handleExportExcel}>
-        تصدير إلى Excel (يدوي)
+        تصدير إلى Excel
       </Button>
 
-      <table
-        ref={tableRef}
-        id="contractsTable"
-        className="display"
-        style={{ width: "100%" }}
-      >
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Age</th>
-            <th>Full name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsData.map((row) => (
-            <tr key={row.id}>
-              <td>{row.id}</td>
-              <td>{row.firstName}</td>
-              <td>{row.lastName}</td>
-              <td>{row.age}</td>
-              <td>{`${row.firstName || ""} ${row.lastName || ""}`}</td>
-            </tr>
+      <Table>
+        <TableHead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <TableCell key={header.id}>
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </TableCell>
+              ))}
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableHead>
+        <TableBody>
+          {table.getRowModel().rows.map((row) => (
+            <TableRow key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
+      <TableFooter>
+        <TableRow>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 20]}
+            count={rowsData.length}
+            rowsPerPage={table.getState().pagination.pageSize}
+            page={table.getState().pagination.pageIndex}
+            onPageChange={(e, newPage) => table.setPageIndex(newPage)}
+            onRowsPerPageChange={(e) =>
+              table.setPageSize(Number(e.target.value))
+            }
+          />
+        </TableRow>
+      </TableFooter>
     </Box>
   );
 };

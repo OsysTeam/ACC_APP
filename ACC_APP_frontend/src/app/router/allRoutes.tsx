@@ -8,5 +8,8 @@ export const allRoutes = {
   addbranchoff: "/addbranchoff",
   userpermission: "/userpermission",
   employeedata: "/employeedata",
-  contractform: "contractform",
+  contractform: "/contractform",
+  employeeAttachments: "/employeeAttachments",
+  transferMovement: "/transferMovement",
+  addCompanyOrClient: "/addCompanyOrClient",
 };

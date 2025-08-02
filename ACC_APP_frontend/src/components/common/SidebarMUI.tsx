@@ -210,7 +210,7 @@ export default function SidebarMUI() {
           width: 260,
           background: "linear-gradient(to bottom, #6a11cb, #2575fc)",
           color: "#fff",
-
+          display: { xs: "none", md: "block" },
           border: "none",
         },
       }}
@@ -222,7 +222,7 @@ export default function SidebarMUI() {
             <ListItemButton
               onClick={() => item.subItems && handleToggle(item.name)}
               component={item.path ? Link : "div"}
-              to={item.path || ""}
+              to={item.path || undefined}
               selected={location.pathname === item.path}
               sx={{ color: "#fff" }}
             >

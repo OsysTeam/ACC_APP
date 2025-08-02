@@ -1,1 +1,0 @@
-export default "data:font/truetype;charset=utf-8;base64,VGhpcyBpcyBhIGR1bW15IFRURiBmaWxlIGNvbnRlbnQgZm9yIEFtaXJpIGZvbnQ=";
