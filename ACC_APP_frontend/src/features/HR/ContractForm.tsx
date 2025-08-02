@@ -25,10 +25,26 @@ import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
 import "datatables.net";
 import "datatables.net-buttons";
 
-// pdfmake
+// pdfmake + Arabic font
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.vfs;
+import amiriFont from "../../assets/fonts/Amiri-Regular.base64";
+
+pdfMake.vfs = {
+  ...pdfFonts.vfs,
+  "Amiri-Regular.ttf": amiriFont,
+};
+
+pdfMake.fonts = {
+  ...pdfMake.fonts,
+  Amiri: {
+    normal: "Amiri-Regular.ttf",
+    bold: "Amiri-Regular.ttf",
+    italics: "Amiri-Regular.ttf",
+    bolditalics: "Amiri-Regular.ttf",
+  },
+};
+
 const employee = [
   { label: "1", value: "ahmed ali" },
   { label: "2", value: "ali" },
@@ -51,18 +67,22 @@ const ContractForm: React.FC = () => {
   const [contractStatus, setContractStatus] = useState("");
 
   useEffect(() => {
-    // نتأكد إن العنصر موجود
-    const tableElement = document.getElementById("contractsTable");
-    if (!tableElement) return;
+    const tableId = "#contractsTable";
+    const tableElement = document.querySelector(tableId);
 
-    // تدمير الجدول القديم لو موجود
-    if (($.fn.DataTable as any).isDataTable("#contractsTable")) {
-      ($("#contractsTable") as any).DataTable().destroy();
+    if (!tableElement) {
+      console.error("Table element not found");
+      return;
     }
 
-    // نهيئ الجدول بعد ما React يرندر
-    setTimeout(() => {
-      ($("#contractsTable") as any).DataTable({
+    try {
+      // لو الجدول موجود بالفعل دمره
+      if (($.fn.DataTable as any).isDataTable(tableId)) {
+        ($(tableId) as any).DataTable().clear().destroy(true);
+      }
+
+      // إنشاء الجدول
+      ($(tableId) as any).DataTable({
         dom: "Bfrtip",
         buttons: [
           {
@@ -74,14 +94,31 @@ const ContractForm: React.FC = () => {
             extend: "pdfHtml5",
             text: "📄 تصدير إلى PDF",
             className: "btn btn-danger",
+            customize: function (doc: any) {
+              if (!doc.defaultStyle) doc.defaultStyle = {};
+              if (!doc.styles) doc.styles = {};
+
+              doc.defaultStyle.font = "Amiri";
+              doc.defaultStyle.alignment = "right";
+
+              doc.styles.tableHeader = doc.styles.tableHeader || {};
+              doc.styles.tableBodyOdd = doc.styles.tableBodyOdd || {};
+              doc.styles.tableBodyEven = doc.styles.tableBodyEven || {};
+
+              doc.styles.tableHeader.alignment = "right";
+              doc.styles.tableBodyOdd.alignment = "right";
+              doc.styles.tableBodyEven.alignment = "right";
+            },
           },
         ],
         language: {
           url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json",
         },
       });
-    }, 0);
-  }, [rowsData]);
+    } catch (err) {
+      console.error("Error initializing DataTable", err);
+    }
+  }, []);
 
   const handleExportExcel = () => {
     const worksheet = xlsx.utils.json_to_sheet(rowsData);
